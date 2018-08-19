@@ -13,25 +13,25 @@ input {
     width: 5ch;
     text-align: right
   }
-.cell1 {
+.c1 {
     border-left: 0px;
     border-right: 1px solid grey;
     border-bottom: 1px solid grey;
     border-top: 0px;
 }
-.cell2 {
+.c2 {
     border-left: 0px;
     border-right: 2px solid black;
     border-bottom: 1px solid grey;
     border-top: 0px;
 }
-.cell3 {
+.c3 {
     border-left: 0px;
     border-right: 1px solid grey;
     border-bottom: 2px solid black;
     border-top: 0px;
 }
-.cell4 {
+.c4 {
     border-left: 0px;
     border-right: 2px solid black;
     border-bottom: 2px solid black;

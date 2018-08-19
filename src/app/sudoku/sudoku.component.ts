@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sudoku',
@@ -6,36 +7,53 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sudoku.component.css']
 })
 export class SudokuComponent implements OnInit {
+  sudokuForm : FormGroup;
+  sudoku: Sudoku;
 
-  rows : any[] = CELLS;
+  constructor(private fb: FormBuilder) {}
+
+
   cellclass : String[] = [
-    "cell1","cell1","cell2","cell1","cell1","cell2","cell1","cell1","cell2",
-    "cell1","cell1","cell2","cell1","cell1","cell2","cell1","cell1","cell2",
-    "cell3","cell3","cell4","cell3","cell3","cell4","cell3","cell3","cell4",
-    "cell1","cell1","cell2","cell1","cell1","cell2","cell1","cell1","cell2",
-    "cell1","cell1","cell2","cell1","cell1","cell2","cell1","cell1","cell2",
-    "cell3","cell3","cell4","cell3","cell3","cell4","cell3","cell3","cell4",
-    "cell1","cell1","cell2","cell1","cell1","cell2","cell1","cell1","cell2",
-    "cell1","cell1","cell2","cell1","cell1","cell2","cell1","cell1","cell2",
-    "cell3","cell3","cell4","cell3","cell3","cell4","cell3","cell3","cell4",
+    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
+    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
+    "c3","c3","c4","c3","c3","c4","c3","c3","c4",
+    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
+    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
+    "c3","c3","c4","c3","c3","c4","c3","c3","c4",
+    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
+    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
+    "c3","c3","c4","c3","c3","c4","c3","c3","c4"
   ]
 
   ngOnInit() {
+    this.sudoku = new Sudoku();
+
+    this.sudokuForm = this.fb.group( {
+      sudokucells: this.fb.array(this.sudoku.sudokucells)
+    });
+
   }
 
-  clear() {
+  
+  solveSudoku() {
+    console.log("solve!");
   }
 }
-export const CELLS: any[] =
-[
-  { cells: ["","","","","8","","","","3"] },
-  { cells: ["4","8","","","2","9","","",""] },
-  { cells: ["","","","","","","","",""] },
-  { cells: ["","","","","","","","",""] },
-  { cells: ["","","","","","","","",""] },
-  { cells: ["","","","","","","","",""] },
-  { cells: ["","","","","","","9","",""] },
-  { cells: ["","","","","","","","",""] },
-  { cells: ["","","","","","","","",""] }
-  
-]
+
+class Sudoku {
+  sudokucells : String[]
+
+  constructor() {
+    this.sudokucells = [
+      "1","5","3","","","","","","",
+      "","","","","","","","","",
+      "","3","","","","","","","",
+      "","","","","","","","","",
+      "","","","","","","9","","",
+      "","","","8","","","","","",
+      "","","","4","","","","","",
+      "7","","","","","","","","",
+      "5","6","","","","","","",""
+    ];
+  }
+}
