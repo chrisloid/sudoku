@@ -1,0 +1,39 @@
+
+table  {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    height: 35px;
+    width: 35px;
+  }
+input {
+    border: 0px;
+    width: 5ch;
+    text-align: right
+  }
+.cell1 {
+    border-left: 0px;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-top: 0px;
+}
+.cell2 {
+    border-left: 0px;
+    border-right: 2px solid black;
+    border-bottom: 1px solid grey;
+    border-top: 0px;
+}
+.cell3 {
+    border-left: 0px;
+    border-right: 1px solid grey;
+    border-bottom: 2px solid black;
+    border-top: 0px;
+}
+.cell4 {
+    border-left: 0px;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-top: 0px;
+}

@@ -1,0 +1,8 @@
+<table>
+  <tr *ngFor="let row of rows; let ir = index">
+    <td *ngFor="let cell of row.cells; let ic = index" class={{cellclass[(9*ir)+ic]}}>
+        <input type="number" min="1" max="9" step="1" value={{cell}}>
+      </td>
+  </tr>
+</table>
+<button onclick="solveSudoku">Sudoku lösen</button>
