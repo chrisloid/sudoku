@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
+import { SudokuService } from './sudoku.service';
 
 @Component({
   selector: 'app-sudoku',
@@ -8,10 +9,8 @@ import { FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 })
 export class SudokuComponent implements OnInit {
   sudokuForm : FormGroup;
-  sudoku: Sudoku;
-
-  constructor(private fb: FormBuilder) {}
-
+ 
+  constructor(private fb: FormBuilder, private sudokuService: SudokuService) {}
 
   cellclass : String[] = [
     "c1","c1","c2","c1","c1","c2","c1","c1","c2",
@@ -26,34 +25,50 @@ export class SudokuComponent implements OnInit {
   ]
 
   ngOnInit() {
-    this.sudoku = new Sudoku();
 
     this.sudokuForm = this.fb.group( {
-      sudokucells: this.fb.array(this.sudoku.sudokucells)
+      sudokucells: this.fb.array([
+        "","","","","8","","","","3",
+        "4","8","","","2","9","1","7","",
+        "","","1","","","","","","",
+        "5","7","","3","","","4","1","9",
+        "","","","","4","","","","",
+        "6","9","4","","","7","","8","5",
+        "","","","","","","9","","",
+        "","6","9","8","7","","","2","1",
+        "8","","","","9","","","",""
+      ]
+      )
     });
 
   }
 
   
   solveSudoku() {
-    console.log("solve!");
+    console.log("solve:");
+
+    let sudokuvalues = this.sudokuForm.get('sudokucells').value;
+    console.log(this.sudokuForm.get('sudokucells').value);
+
+    let sudokuAsString : String;
+    sudokuAsString="";
+
+    sudokuvalues.forEach(element => {
+      if (element) {
+        sudokuAsString+=element;
+      } else {
+        sudokuAsString+="0";
+      }
+    });
+    console.log(sudokuAsString);
+    console.log(sudokuAsString.length);
+
+    
+    this.sudokuService.solveSudoku(sudokuAsString).subscribe(s => this.showSudokuSolved(s) );
+    
   }
-}
 
-class Sudoku {
-  sudokucells : String[]
-
-  constructor() {
-    this.sudokucells = [
-      "1","5","3","","","","","","",
-      "","","","","","","","","",
-      "","3","","","","","","","",
-      "","","","","","","","","",
-      "","","","","","","9","","",
-      "","","","8","","","","","",
-      "","","","4","","","","","",
-      "7","","","","","","","","",
-      "5","6","","","","","","",""
-    ];
+  showSudokuSolved(sudokuSolved : any) {
+    console.log(sudokuSolved);
   }
 }

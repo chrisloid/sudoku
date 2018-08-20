@@ -10,5 +10,8 @@
     </table>
   </div>
   <br>
-  <button type="submit">Sudoku lösen</button>
+  <button type="submit" [disabled]="!sudokuForm.valid">Sudoku lösen</button>
+  <p>
+      Form Status: {{ sudokuForm.status }}
+    </p>
 </form>
