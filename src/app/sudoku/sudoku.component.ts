@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { SudokuService } from './sudoku.service';
+import {Sudoku} from './sudoku';
 
 @Component({
   selector: 'app-sudoku',
@@ -9,6 +10,7 @@ import { SudokuService } from './sudoku.service';
 })
 export class SudokuComponent implements OnInit {
   sudokuForm : FormGroup;
+  sudoku : Sudoku;
  
   constructor(private fb: FormBuilder, private sudokuService: SudokuService) {}
 
@@ -25,30 +27,12 @@ export class SudokuComponent implements OnInit {
   ]
 
   ngOnInit() {
-
-    this.sudokuForm = this.fb.group( {
-      sudokucells: this.fb.array([
-        "","","","","8","","","","3",
-        "4","8","","","2","9","1","7","",
-        "","","1","","","","","","",
-        "5","7","","3","","","4","1","9",
-        "","","","","4","","","","",
-        "6","9","4","","","7","","8","5",
-        "","","","","","","9","","",
-        "","6","9","8","7","","","2","1",
-        "8","","","","9","","","",""
-      ]
-      )
-    });
-
+    this.initSudoku();
+    this.sudokuForm = this.fb.group( { sudokucells: this.fb.array(this.sudoku.valuesAsStringArray) });
   }
-
   
   solveSudoku() {
-    console.log("solve:");
-
     let sudokuvalues = this.sudokuForm.get('sudokucells').value;
-    console.log(this.sudokuForm.get('sudokucells').value);
 
     let sudokuAsString : String;
     sudokuAsString="";
@@ -60,15 +44,24 @@ export class SudokuComponent implements OnInit {
         sudokuAsString+="0";
       }
     });
-    console.log(sudokuAsString);
-    console.log(sudokuAsString.length);
 
-    
-    this.sudokuService.solveSudoku(sudokuAsString).subscribe(s => this.showSudokuSolved(s) );
-    
+    this.sudokuService.solveSudoku(sudokuAsString).subscribe(s => { this.sudoku = s; this.updateSodukuForm() });
   }
 
-  showSudokuSolved(sudokuSolved : any) {
-    console.log(sudokuSolved);
+  resetSudoku() {
+    this.initSudoku();
+    this.updateSodukuForm();
+  }
+
+  updateSodukuForm() {
+    this.sudokuForm.get('sudokucells').setValue(this.sudoku.valuesAsStringArray);
+  }
+
+  initSudoku() {
+    let initValues : Array<String> = [""];
+    for (let i=0; i<80;i++) {
+      initValues.push("");
+    }
+    this.sudoku = new Sudoku(initValues,null,null,null);
   }
 }

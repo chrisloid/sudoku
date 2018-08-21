@@ -11,7 +11,8 @@
   </div>
   <br>
   <button type="submit" [disabled]="!sudokuForm.valid">Sudoku lösen</button>
-  <p>
-      Form Status: {{ sudokuForm.status }}
-    </p>
 </form>
+<button (click)="resetSudoku()">reset</button>
+<div *ngIf="sudoku.solved">
+  <p>gelöst in {{ sudoku.durationSolvedInMillis }} ms</p>
+</div>
