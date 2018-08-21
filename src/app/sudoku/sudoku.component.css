@@ -5,8 +5,8 @@ table  {
 }
 
 td {
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
   }
 input {
     border: 0px;
@@ -36,4 +36,11 @@ input {
     border-right: 2px solid black;
     border-bottom: 2px solid black;
     border-top: 0px;
+}
+.ng-dirty {
+    font-weight: bold;
+    color:navy;
+}
+.ng-pristine {
+    color: darkgrey;
 }

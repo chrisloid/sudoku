@@ -50,7 +50,9 @@ export class SudokuComponent implements OnInit {
 
   resetSudoku() {
     this.initSudoku();
+    this.sudokuForm.reset();
     this.updateSodukuForm();
+
   }
 
   updateSodukuForm() {
