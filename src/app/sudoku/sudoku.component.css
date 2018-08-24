@@ -13,34 +13,27 @@ input {
     width: 5ch;
     text-align: right
   }
-.c1 {
+
+.c0 {
     border-left: 0px;
-    border-right: 1px solid grey;
-    border-bottom: 1px solid grey;
     border-top: 0px;
+}
+.c1 {
+    border-right: 1px solid grey;
 }
 .c2 {
-    border-left: 0px;
-    border-right: 2px solid black;
     border-bottom: 1px solid grey;
-    border-top: 0px;
 }
 .c3 {
-    border-left: 0px;
-    border-right: 1px solid grey;
-    border-bottom: 2px solid black;
-    border-top: 0px;
+    border-right: 2px solid black;
 }
 .c4 {
-    border-left: 0px;
-    border-right: 2px solid black;
     border-bottom: 2px solid black;
-    border-top: 0px;
 }
 .ng-dirty {
     font-weight: bold;
     color:navy;
 }
 .ng-pristine {
-    color: darkgrey;
+    color: rgb(32, 115, 192);
 }

@@ -14,8 +14,21 @@ export class SudokuService {
 
   constructor(private http: HttpClient) { }
 
-  solveSudoku(sudokuAsString: String): Observable<Sudoku> {
-    const url = `${this.sudokuApiUrl}/${sudokuAsString}`;
+  solveSudoku(sudoku : Sudoku ): Observable<Sudoku> {
+    let sudokuAsString : String ="";
+
+    sudoku.valuesAsStringArray.forEach(element => {
+      if (element) {
+        sudokuAsString+=element;
+      } else {
+        sudokuAsString+="0";
+      }
+    });
+
+    let layoutAsString = "";
+    sudoku.layout.forEach(element => {layoutAsString+=element;});
+
+    const url = `${this.sudokuApiUrl}/${sudokuAsString}?layout=${layoutAsString}`;
 
     return this.http.get<Sudoku>(url);
  

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { SudokuService } from './sudoku.service';
-import {Sudoku} from './sudoku';
+import { Sudoku} from './sudoku';
+import { DefaultLayoutValues } from '../layout/layout';
 
 @Component({
   selector: 'app-sudoku',
@@ -11,59 +13,85 @@ import {Sudoku} from './sudoku';
 export class SudokuComponent implements OnInit {
   sudokuForm : FormGroup;
   sudoku : Sudoku;
+  cellclass : String[] = [];
  
-  constructor(private fb: FormBuilder, private sudokuService: SudokuService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private sudokuService: SudokuService,
+    private route : ActivatedRoute
+  ) {}
 
-  cellclass : String[] = [
-    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
-    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
-    "c3","c3","c4","c3","c3","c4","c3","c3","c4",
-    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
-    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
-    "c3","c3","c4","c3","c3","c4","c3","c3","c4",
-    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
-    "c1","c1","c2","c1","c1","c2","c1","c1","c2",
-    "c3","c3","c4","c3","c3","c4","c3","c3","c4"
-  ]
 
   ngOnInit() {
-    this.initSudoku();
+    let layout : any = this.route.snapshot.params['layout'];
+    if (!layout) {
+      layout = DefaultLayoutValues;
+    }
+    this.initSudoku(layout);
+
     this.sudokuForm = this.fb.group( { sudokucells: this.fb.array(this.sudoku.valuesAsStringArray) });
   }
   
   solveSudoku() {
-    let sudokuvalues = this.sudokuForm.get('sudokucells').value;
+    this.sudoku.valuesAsStringArray = this.sudokuForm.get('sudokucells').value;
+    this.sudokuService.solveSudoku(this.sudoku).subscribe(s => { this.solveCallback(s) });
+  }
 
-    let sudokuAsString : String;
-    sudokuAsString="";
-
-    sudokuvalues.forEach(element => {
-      if (element) {
-        sudokuAsString+=element;
-      } else {
-        sudokuAsString+="0";
-      }
-    });
-
-    this.sudokuService.solveSudoku(sudokuAsString).subscribe(s => { this.sudoku = s; this.updateSodukuForm() });
+  solveCallback(sudokuSolved : Sudoku) {
+    this.sudoku.valuesAsStringArray = sudokuSolved.valuesAsStringArray;
+    this.sudoku.durationSolvedInMillis = sudokuSolved.durationSolvedInMillis;
+    this.sudoku.solved = sudokuSolved.solved;
+    
+    this.updateSodukuForm();
   }
 
   resetSudoku() {
-    this.initSudoku();
+    this.initSudoku(this.sudoku.layout);
     this.sudokuForm.reset();
     this.updateSodukuForm();
-
   }
 
   updateSodukuForm() {
     this.sudokuForm.get('sudokucells').setValue(this.sudoku.valuesAsStringArray);
   }
 
-  initSudoku() {
+  initSudoku(layout : String[]) {
     let initValues : Array<String> = [""];
     for (let i=0; i<80;i++) {
       initValues.push("");
     }
-    this.sudoku = new Sudoku(initValues,null,null,null);
+    this.sudoku = new Sudoku(initValues,null,null,layout);
+
+    this.cellclass = this.generateStyleFromLayout(this.sudoku.layout);
   }
+
+  generateStyleFromLayout(layout : String[]) : String[] {
+    let result : Array<String> = [];
+
+    for (let row=0; row<9; row++) {
+      for (let col=0; col<9; col++) {
+        let index = row*9+col;
+        let rechts = index+1;
+        let unten = index+9;
+
+        let styleClass : String = "c0";
+
+        if (col<8 && layout[index] == layout[rechts]) {
+          styleClass+=" c1";
+        } else {
+          styleClass+=" c3";
+        }
+
+        if (row<8 && layout[index] == layout[unten]) {
+          styleClass+=" c2";
+        } else {
+          styleClass+=" c4";
+        }
+        result.push(styleClass);
+      }
+
+    }
+    return result;
+  }
+
 }

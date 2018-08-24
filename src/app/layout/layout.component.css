@@ -1,0 +1,26 @@
+
+.layoutvalue {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    margin:0;
+    border: 0;
+  }
+
+.valuebutton {
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    margin:0;
+    border: 0;
+  }  
+
+.area1 {  background-color: blueviolet  } 
+.area2 {  background-color: antiquewhite } 
+.area3 {  background-color:blue }
+.area4 {  background-color: burlywood } 
+.area5 {  background-color:crimson } 
+.area6 {  background-color:aquamarine } 
+.area7 {  background-color:chartreuse } 
+.area8 {  background-color:chocolate } 
+.area9 {  background-color:cadetblue } 

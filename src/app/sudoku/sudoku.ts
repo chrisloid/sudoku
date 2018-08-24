@@ -1,5 +1,5 @@
 export class Sudoku {
-    public valuesAsStringArray: Array<String>;
+    public valuesAsStringArray: Array<any>;
     public durationSolvedInMillis : number;
     public solved: boolean;
     public layout: Array<any>;

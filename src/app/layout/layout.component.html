@@ -1,0 +1,28 @@
+
+<div>
+  <table>
+    <tr>
+      <td *ngFor="let i of [1,2,3,4,5,6,7,8,9]; let value = index">
+          <button class={{cellclass[value+1]}}
+            (click)=changeValue(value)>
+            {{value+1}}
+          </button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  {{currentValue}}
+  <table>
+    <tr *ngFor="let row of [1,2,3,4,5,6,7,8,9]; let ir = index">
+      <td *ngFor="let cell of [1,2,3,4,5,6,7,8,9]; let ic = index">
+          <button class={{cellclass[layoutValues[(9*ir)+ic]]}}
+            (click)=changeLayout((9*ir)+ic)>
+            {{layoutValues[(9*ir)+ic]}}
+          </button>
+      </td>
+    </tr>
+  </table>
+</div>
+<button [disabled]="!layoutIsValid" [routerLink]="['/sudoku/', layoutValues]">Layout verwenden</button>
