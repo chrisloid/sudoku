@@ -1,11 +1,10 @@
-
 <div>
   <table>
     <tr>
       <td *ngFor="let i of [1,2,3,4,5,6,7,8,9]; let value = index">
-          <button class={{cellclass[value+1]}}
+          <button class={{buttonclass[value]}}
             (click)=changeValue(value)>
-            {{value+1}}
+            {{value+1}} ({{counter[value]}})
           </button>
       </td>
     </tr>
@@ -16,8 +15,8 @@
   {{currentValue}}
   <table>
     <tr *ngFor="let row of [1,2,3,4,5,6,7,8,9]; let ir = index">
-      <td *ngFor="let cell of [1,2,3,4,5,6,7,8,9]; let ic = index">
-          <button class={{cellclass[layoutValues[(9*ir)+ic]]}}
+      <td *ngFor="let cell of [1,2,3,4,5,6,7,8,9]; let ic = index" class={{cellclass[(9*ir)+ic]}}>
+          <button class={{buttonclass[layoutValues[(9*ir)+ic]-1]}}
             (click)=changeLayout((9*ir)+ic)>
             {{layoutValues[(9*ir)+ic]}}
           </button>

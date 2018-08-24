@@ -1,6 +1,6 @@
 
 table  {
-    border: 2px solid black;
+    border: 3px solid black;
     border-collapse: collapse;
 }
 
@@ -25,10 +25,10 @@ input {
     border-bottom: 1px solid grey;
 }
 .c3 {
-    border-right: 2px solid black;
+    border-right: 3px solid black;
 }
 .c4 {
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid black;
 }
 .ng-dirty {
     font-weight: bold;

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { SudokuService } from './sudoku.service';
 import { Sudoku} from './sudoku';
-import { DefaultLayoutValues } from '../layout/layout';
+import { DefaultLayoutValues, generateStyleFromLayout } from '../layout/layout';
 
 @Component({
   selector: 'app-sudoku',
@@ -62,36 +62,8 @@ export class SudokuComponent implements OnInit {
     }
     this.sudoku = new Sudoku(initValues,null,null,layout);
 
-    this.cellclass = this.generateStyleFromLayout(this.sudoku.layout);
+    this.cellclass = generateStyleFromLayout(this.sudoku.layout);
   }
 
-  generateStyleFromLayout(layout : String[]) : String[] {
-    let result : Array<String> = [];
-
-    for (let row=0; row<9; row++) {
-      for (let col=0; col<9; col++) {
-        let index = row*9+col;
-        let rechts = index+1;
-        let unten = index+9;
-
-        let styleClass : String = "c0";
-
-        if (col<8 && layout[index] == layout[rechts]) {
-          styleClass+=" c1";
-        } else {
-          styleClass+=" c3";
-        }
-
-        if (row<8 && layout[index] == layout[unten]) {
-          styleClass+=" c2";
-        } else {
-          styleClass+=" c4";
-        }
-        result.push(styleClass);
-      }
-
-    }
-    return result;
-  }
 
 }

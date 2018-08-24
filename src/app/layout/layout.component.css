@@ -1,26 +1,19 @@
 
-.layoutvalue {
-    height: 30px;
-    width: 30px;
-    padding: 0;
-    margin:0;
-    border: 0;
-  }
+ 
 
-.valuebutton {
-    height: 30px;
-    width: 30px;
-    padding: 0;
-    margin:0;
-    border: 0;
-  }  
+.layoutbutton {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 
-.area1 {  background-color: blueviolet  } 
-.area2 {  background-color: antiquewhite } 
-.area3 {  background-color:blue }
-.area4 {  background-color: burlywood } 
-.area5 {  background-color:crimson } 
-.area6 {  background-color:aquamarine } 
-.area7 {  background-color:chartreuse } 
-.area8 {  background-color:chocolate } 
-.area9 {  background-color:cadetblue } 
+.a1 {  background-color: antiquewhite } 
+.a2 {  background-color: cornflowerblue } 
+.a3 {  background-color: darkgreen}
+.a4 {  background-color: limegreen } 
+.a5 {  background-color:goldenrod } 
+.a6 {  background-color:hotpink } 
+.a7 {  background-color:aqua } 
+.a8 {  background-color:brown } 
+.a9 {  background-color:coral } 

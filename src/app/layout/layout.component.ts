@@ -1,30 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DefaultLayoutValues } from './layout';
+import { DefaultLayoutValues, generateStyleFromLayout } from './layout';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css', '../sudoku/sudoku.component.css']
 })
 export class LayoutComponent implements OnInit {
 
   currentValue : number = 1;
   layoutIsValid : boolean = true;
   layoutValues : String[];
+  cellclass : String[] = [];
+  counter : Array<number> = [0,0,0,0,0,0,0,0,0];
 
-  cellclass : String[] = [
-    "area1","area2","area3","area4","area5","area6","area7","area8","area9"
+  buttonclass : String[] = [
+    "layoutbutton a1","layoutbutton a2","layoutbutton a3",
+    "layoutbutton a4","layoutbutton a5","layoutbutton a6",
+    "layoutbutton a7","layoutbutton a8","layoutbutton a9"
   ]
 
   constructor( private router : Router ) { }
 
   ngOnInit() {
     this.layoutValues = DefaultLayoutValues;
+    this.cellclass = generateStyleFromLayout(this.layoutValues);
+    this.checkLayout();
   }
 
   changeLayout(index : number) {
     this.layoutValues[index]=""+this.currentValue;
+    this.cellclass = generateStyleFromLayout(this.layoutValues);
     this.layoutIsValid = this.checkLayout();
   }
 
@@ -33,10 +40,10 @@ export class LayoutComponent implements OnInit {
   }
 
   checkLayout() : boolean {
-    let counter : Array<number> = [0,0,0,0,0,0,0,0,0];
-    this.layoutValues.forEach(element => {counter[Number(element)-1]++});
+    this.counter = [0,0,0,0,0,0,0,0,0];
+    this.layoutValues.forEach(element => {this.counter[Number(element)-1]++});
     for (let i=0; i<9; i++) {
-        if(counter[i]!=9) return false;
+        if(this.counter[i]!=9) return false;
     }
     return true;
   }
