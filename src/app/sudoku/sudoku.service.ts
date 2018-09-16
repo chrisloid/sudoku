@@ -7,30 +7,28 @@ import {Sudoku} from './sudoku';
   providedIn: 'root'
 })
 
- 
 export class SudokuService {
-
-  private sudokuApiUrl = 'http://localhost:8080/SudokuWebService/rest/sudoku'; 
+  private sudokuApiUrl = 'http://localhost:8080/SudokuWebService/rest/sudoku';
 
   constructor(private http: HttpClient) { }
 
-  solveSudoku(sudoku : Sudoku ): Observable<Sudoku> {
-    let sudokuAsString : String ="";
+  solveSudoku(sudoku: Sudoku ): Observable<Sudoku> {
+    let sudokuAsString: String = '';
 
     sudoku.valuesAsStringArray.forEach(element => {
       if (element) {
-        sudokuAsString+=element;
+        sudokuAsString += element;
       } else {
-        sudokuAsString+="0";
+        sudokuAsString += '0';
       }
     });
 
-    let layoutAsString = "";
-    sudoku.layout.forEach(element => {layoutAsString+=element;});
+    let layoutAsString = '';
+    sudoku.layout.forEach(element => layoutAsString += element);
 
     const url = `${this.sudokuApiUrl}/${sudokuAsString}?layout=${layoutAsString}`;
 
     return this.http.get<Sudoku>(url);
- 
+
   }
 }

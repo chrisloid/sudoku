@@ -11,19 +11,19 @@ import { DefaultLayoutValues, generateStyleFromLayout } from '../layout/layout';
   styleUrls: ['./sudoku.component.css']
 })
 export class SudokuComponent implements OnInit {
-  sudokuForm : FormGroup;
-  sudoku : Sudoku;
-  cellclass : String[] = [];
- 
+  sudokuForm: FormGroup;
+  sudoku: Sudoku;
+  cellclass: String[] = [];
+
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private sudokuService: SudokuService,
-    private route : ActivatedRoute
+    private route: ActivatedRoute
   ) {}
 
 
   ngOnInit() {
-    let layout : any = this.route.snapshot.params['layout'];
+    let layout: any = this.route.snapshot.params['layout'];
     if (!layout) {
       layout = DefaultLayoutValues;
     }
@@ -31,17 +31,17 @@ export class SudokuComponent implements OnInit {
 
     this.sudokuForm = this.fb.group( { sudokucells: this.fb.array(this.sudoku.valuesAsStringArray) });
   }
-  
+
   solveSudoku() {
     this.sudoku.valuesAsStringArray = this.sudokuForm.get('sudokucells').value;
-    this.sudokuService.solveSudoku(this.sudoku).subscribe(s => { this.solveCallback(s) });
+    this.sudokuService.solveSudoku(this.sudoku).subscribe(s => this.solveCallback(s));
   }
 
-  solveCallback(sudokuSolved : Sudoku) {
+  solveCallback(sudokuSolved: Sudoku) {
     this.sudoku.valuesAsStringArray = sudokuSolved.valuesAsStringArray;
     this.sudoku.durationSolvedInMillis = sudokuSolved.durationSolvedInMillis;
     this.sudoku.solved = sudokuSolved.solved;
-    
+
     this.updateSodukuForm();
   }
 
@@ -55,15 +55,13 @@ export class SudokuComponent implements OnInit {
     this.sudokuForm.get('sudokucells').setValue(this.sudoku.valuesAsStringArray);
   }
 
-  initSudoku(layout : String[]) {
-    let initValues : Array<String> = [""];
-    for (let i=0; i<80;i++) {
-      initValues.push("");
+  initSudoku(layout: String[]) {
+    const initValues: Array<String> = [''];
+    for (let i = 0; i < 80; i++) {
+      initValues.push('');
     }
-    this.sudoku = new Sudoku(initValues,null,null,layout);
+    this.sudoku = new Sudoku(initValues, null, null, layout);
 
     this.cellclass = generateStyleFromLayout(this.sudoku.layout);
   }
-
-
 }

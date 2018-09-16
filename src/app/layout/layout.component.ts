@@ -9,19 +9,19 @@ import { DefaultLayoutValues, generateStyleFromLayout } from './layout';
 })
 export class LayoutComponent implements OnInit {
 
-  currentValue : number = 1;
-  layoutIsValid : boolean = true;
-  layoutValues : String[];
-  cellclass : String[] = [];
-  counter : Array<number> = [0,0,0,0,0,0,0,0,0];
+  currentValue = 1;
+  layoutIsValid = true;
+  layoutValues: String[];
+  cellclass: String[] = [];
+  counter: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  buttonclass : String[] = [
-    "layoutbutton a1","layoutbutton a2","layoutbutton a3",
-    "layoutbutton a4","layoutbutton a5","layoutbutton a6",
-    "layoutbutton a7","layoutbutton a8","layoutbutton a9"
-  ]
+  buttonclass: String[] = [
+    'layoutbutton a1', 'layoutbutton a2', 'layoutbutton a3',
+    'layoutbutton a4', 'layoutbutton a5', 'layoutbutton a6',
+    'layoutbutton a7', 'layoutbutton a8', 'layoutbutton a9'
+  ];
 
-  constructor( private router : Router ) { }
+  constructor( private router: Router ) { }
 
   ngOnInit() {
     this.layoutValues = DefaultLayoutValues;
@@ -29,21 +29,23 @@ export class LayoutComponent implements OnInit {
     this.checkLayout();
   }
 
-  changeLayout(index : number) {
-    this.layoutValues[index]=""+this.currentValue;
+  changeLayout(index: number) {
+    this.layoutValues[index] = '' + this.currentValue;
     this.cellclass = generateStyleFromLayout(this.layoutValues);
     this.layoutIsValid = this.checkLayout();
   }
 
   changeValue(value: number) {
-    this.currentValue = value +1;
+    this.currentValue = value + 1;
   }
 
-  checkLayout() : boolean {
-    this.counter = [0,0,0,0,0,0,0,0,0];
-    this.layoutValues.forEach(element => {this.counter[Number(element)-1]++});
-    for (let i=0; i<9; i++) {
-        if(this.counter[i]!=9) return false;
+  checkLayout(): boolean {
+    this.counter = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.layoutValues.forEach(element =>  this.counter[Number(element) - 1 ]++);
+    for (let i = 0; i < 9; i++) {
+        if (this.counter[i] !== 9) {
+          return false;
+        }
     }
     return true;
   }

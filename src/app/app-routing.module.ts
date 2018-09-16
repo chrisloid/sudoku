@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SudokuComponent } from './sudoku/sudoku.component';
 import { LayoutComponent } from './layout/layout.component';
 
-const routes : Routes = [
+const routes: Routes = [
     { path: '', redirectTo: '/sudoku', pathMatch: 'full'},
     { path: 'layout', component: LayoutComponent},
     { path: 'sudoku', component: SudokuComponent},
@@ -16,4 +16,4 @@ const routes : Routes = [
     exports: [RouterModule],
     providers: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
